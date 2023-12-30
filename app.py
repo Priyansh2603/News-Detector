@@ -1,6 +1,4 @@
-# from crypt import methods
-from turtle import color
-from flask import Flask, escape, request, render_template
+from flask import Flask, request, render_template
 import pickle
 model = pickle.load(open("Final_model_news.pkl",'rb'))
 vector = pickle.load(open("vectorizer2.pkl",'rb'))
@@ -31,10 +29,9 @@ def predict():
         print(news)
         pred = model.predict(vector.transform([news]))[0]
         print(pred)
-        if pred == "REAL":
-            color = "white"
         with open("Predict.txt",'w') as f:
             f.write(pred)
+            print(pred)
         return render_template("index.html",prediction_text=f"{pred} ".format(pred))
     else:
         return render_template("index.html")
